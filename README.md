@@ -71,15 +71,26 @@ To install this skin addition...
              #include "/var/www/html/histgenerator.inc"
           #end if
   
-  These will be inserted above the footer section, as follows...
+  These will be inserted above the footer section after "#end for", as follows...
   
           <div id="history_year" class="plot_container" style="display:none">
           [...]
-          </div>
+               </div>
+          #end for
+
           #if os.path.exists("/var/www/html/histgenerator.inc")
              #include "/var/www/html/histgenerator.inc"
           #end if
+          
+             </div>
+           </div>
           </div>
+
+  Finally edit function 'choose_history' in 'season.js' adding 'alltime' as follow:
+  ```
+    function choose_history(id) {
+      choose_div('history', id, ['day', 'week', 'month', 'year','alltime']);
+  ```
   
   # Optional:
   Ideally, the historygenerator.inc file will exist when your main skin (Seasons) StdReport section runs. That requires the [[AllTimesSeasons]] section in weewx.conf to run first.  To do that, then move the [[AllTimeSeasons]] section to before the Seasons skin section in the weewx.conf file.
